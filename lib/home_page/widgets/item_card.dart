@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 
 class ItemCard extends StatefulWidget {
   const ItemCard({
@@ -43,9 +42,9 @@ class _ItemCardState extends State<ItemCard> {
     final int discount = (priceInt - widget.salePrice);
     final double discountPercentage = ((discount / priceInt) * 100);
     return Container(
-      margin: const EdgeInsets.symmetric(horizontal: 8),
-      padding: const EdgeInsets.only(bottom: 16),
-      width: 200,
+      margin: const EdgeInsets.symmetric(horizontal: 6),
+      padding: const EdgeInsets.only(bottom: 14),
+      width: 185,
       decoration: BoxDecoration(
         color: Colors.white,
         borderRadius: const BorderRadius.all(Radius.circular(12)),
@@ -172,7 +171,7 @@ class _ItemCardState extends State<ItemCard> {
                   onPressed: () {},
                   style: ElevatedButton.styleFrom(
                       padding: const EdgeInsets.symmetric(
-                          horizontal: 30, vertical: 10),
+                          horizontal: 26, vertical: 10),
                       backgroundColor: const Color(0xFF2556B9),
                       shape: const RoundedRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(10)))),

@@ -1,11 +1,7 @@
-import 'dart:convert';
-
-import 'package:absolutemen_app/model/product_list.dart';
-import 'package:absolutemen_app/home_page/widgets/details_card.dart';
 import 'package:absolutemen_app/provider/home_page_provider.dart';
+import 'package:absolutemen_app/routes/app_router.dart';
+import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:flutter/widgets.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:provider/provider.dart';
@@ -14,6 +10,7 @@ import 'package:smooth_page_indicator/smooth_page_indicator.dart';
 import 'widgets/item_card.dart';
 import 'widgets/review_card.dart';
 
+@RoutePage()
 class HomePage extends StatefulWidget {
   const HomePage({super.key});
 
@@ -40,7 +37,9 @@ class _HomePageState extends State<HomePage> {
         ),
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () {
+              context.router.push(const LoginRoute());
+            },
             icon: const Icon(
               FontAwesomeIcons.heart,
               color: Colors.black,
