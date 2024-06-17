@@ -1,4 +1,6 @@
-import 'package:absolutemen_app/provider/home_page_provider.dart';
+import 'package:absolutemen_app/autentication/login_page.dart';
+import 'package:absolutemen_app/home_page/widgets/menu_details.dart';
+import 'package:absolutemen_app/home_page/provider/home_page_provider.dart';
 import 'package:absolutemen_app/routes/app_router.dart';
 import 'package:auto_route/auto_route.dart';
 import 'package:flutter/material.dart';
@@ -21,11 +23,13 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   final review_controller = PageController();
   final saleposter_controller = PageController();
+  final GlobalKey<ScaffoldState> scaffoldKey = GlobalKey<ScaffoldState>();
 
   @override
   Widget build(BuildContext context) {
     HomePageProvider homePageProvider = context.read<HomePageProvider>();
     return Scaffold(
+      key: scaffoldKey,
       appBar: AppBar(
         toolbarHeight: 70,
         backgroundColor: Colors.white,
@@ -33,13 +37,11 @@ class _HomePageState extends State<HomePage> {
         title: const Image(
           height: 56,
           // width: 79,
-          image: AssetImage('assets/svg/202208041717377574218_logo.png'),
+          image: AssetImage('assets/svg/main_logo.png'),
         ),
         actions: [
           IconButton(
-            onPressed: () {
-              context.router.push(const LoginRoute());
-            },
+            onPressed: () {},
             icon: const Icon(
               FontAwesomeIcons.heart,
               color: Colors.black,
@@ -53,15 +55,41 @@ class _HomePageState extends State<HomePage> {
                 color: Colors.black,
                 size: 24,
               )),
+          PopupMenuButton(
+            color: Colors.white,
+            offset: const Offset(0, 42),
+            itemBuilder: (context) => [
+              PopupMenuItem(
+                  onTap: () => context.router.push(LoginRoute()),
+                  child: const Text(
+                    "Login",
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  )),
+              PopupMenuItem(
+                  onTap: () => context.router.push(const SignUpRoute()),
+                  child: const Text(
+                    "Register",
+                    style: TextStyle(fontWeight: FontWeight.w600),
+                  )),
+            ],
+            child: const Icon(
+              Icons.account_circle_outlined,
+              color: Colors.black,
+              size: 24,
+            ),
+          ),
+          // IconButton(
+          //   onPressed: () {
+
+          //   },
+          //   icon: const Icon(
+          //     Icons.account_circle_outlined,
+          //     color: Colors.black,
+          //     size: 24,
+          //   ),
+          // ),
           IconButton(
-              onPressed: () {},
-              icon: const Icon(
-                Icons.account_circle_outlined,
-                color: Colors.black,
-                size: 24,
-              )),
-          IconButton(
-              onPressed: () {},
+              onPressed: () => scaffoldKey.currentState!.openEndDrawer(),
               icon: const Icon(
                 Icons.menu,
                 color: Colors.black,
@@ -69,17 +97,7 @@ class _HomePageState extends State<HomePage> {
               )),
         ],
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   backgroundColor: const Color.fromARGB(75, 158, 158, 158),
-      //   onPressed: () {},
-      //   child: const Image(
-      //     image: AssetImage(
-      //       'assets/images/icons8-whatsapp-50.png',
-      //     ),
-      //     height: 40,
-      //     width: 40,
-      //   ),
-      // ),
+      endDrawer: const MenuDetails(),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.only(top: 20),

@@ -16,15 +16,28 @@ class HomePageProvider extends ChangeNotifier {
 
   List<Map<String, dynamic>> ourPartners = [];
 
+  String token =
+      "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyZGF0YSI6NzY3MywiaWF0IjoxNzE3MTQ3NDc5fQ.vHoxikUMccIZoTa4AHAajLCU_KYzYVOJDp9wRE6iiRk";
+
   //////////////////////////////// Banners /////////////////////////////////////
 
   Future<void> fetchBannerData() async {
-    final response = await http.get(Uri.parse('http://10.0.2.2:4000/banners'));
+    final response = await http.get(
+      //in the place of 10.0.2.2 in api use laptop local ip
+      //adress while running the code by connecting to android
+      Uri.parse('http://192.168.29.238:4000/app/banners'),
+      //     headers: {
+      //   'Authorization': 'Bearer $token',
+      //   'Content-Type': 'application/json',
+      // }
+    );
     var data = jsonDecode(response.body.toString());
     if (response.statusCode == 200) {
       bannerData =
           json.decode(response.body)['data'].cast<Map<String, dynamic>>();
       notifyListeners();
+      print('bannerdata');
+      print(data);
       // print(bannerData);
     } else {
       throw Exception('Failed to load data');
@@ -34,8 +47,8 @@ class HomePageProvider extends ChangeNotifier {
   ////////////////////////// Main - Categories /////////////////////////////////////
 
   Future<void> fetchMainCategories() async {
-    final response =
-        await http.get(Uri.parse('http://10.0.2.2:4000/main-categories'));
+    final response = await http
+        .get(Uri.parse('http://192.168.29.238:4000/app/maincategories'));
     var data = jsonDecode(response.body.toString());
     if (response.statusCode == 200) {
       mainCategories =
@@ -52,7 +65,7 @@ class HomePageProvider extends ChangeNotifier {
 
   Future<void> fetchTopDeals() async {
     final response = await http
-        .get(Uri.parse('http://10.0.2.2:4000/product-list/top-deals'));
+        .get(Uri.parse('http://192.168.29.238:4000/app/productlist/topdeals'));
     var data = jsonDecode(response.body.toString());
     if (response.statusCode == 200) {
       topDeals =
@@ -68,8 +81,8 @@ class HomePageProvider extends ChangeNotifier {
   //////////////////////////// new-arrivals ////////////////////////////////////
 
   Future<void> fetchNewArrivals() async {
-    final response = await http
-        .get(Uri.parse('http://10.0.2.2:4000/product-list/new-arrivals'));
+    final response = await http.get(
+        Uri.parse('http://192.168.29.238:4000/app/productlist/newarrivals'));
     var data = jsonDecode(response.body.toString());
     if (response.statusCode == 200) {
       newArrivals =
@@ -85,8 +98,8 @@ class HomePageProvider extends ChangeNotifier {
 ///////////////////////////////// trending-offers //////////////////////////////
 
   Future<void> fetchTrendingOffers() async {
-    final response = await http
-        .get(Uri.parse('http://10.0.2.2:4000/product-list/trending-offers'));
+    final response = await http.get(
+        Uri.parse('http://192.168.29.238:4000/app/productlist/trendingoffers'));
     var data = jsonDecode(response.body.toString());
     if (response.statusCode == 200) {
       trendingOffers =
@@ -103,14 +116,14 @@ class HomePageProvider extends ChangeNotifier {
 
   Future<void> fetchOurPartners() async {
     final response =
-        await http.get(Uri.parse('http://10.0.2.2:4000/partners-list'));
+        await http.get(Uri.parse('http://192.168.29.238:4000/app/partners'));
     var data = jsonDecode(response.body.toString());
     if (response.statusCode == 200) {
       ourPartners =
           json.decode(response.body)['data'].cast<Map<String, dynamic>>();
       notifyListeners();
       print('-----------our-partner-----------------');
-      print(ourPartners);
+      // print(ourPartners);
     } else {
       throw Exception('Failed to load data');
     }
